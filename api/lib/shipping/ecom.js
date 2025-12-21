@@ -1,4 +1,4 @@
-const  states  = require("../../states.json");
+const states = require("../../states.json");
 
 const formatToEcomDelivery = (order) => {
   // 1. معالجة منطق المكتب/المنزل
@@ -10,9 +10,9 @@ const formatToEcomDelivery = (order) => {
   // 2. استخراج اسم المنتج
   // بما أن item عندك هو object، سنحاول جلب الاسم منه
   const articleName = order.item?.name || order.item?.title || "Product";
-const getstatenumber = (s)=>{
-    return states.find(e=> e.name == s ).code
-}
+  const getstatenumber = (s) => {
+    return states.find(e => e.ar_name == s || e.name == s).code
+  }
   // 3. بناء الكائن حسب وثيقتهم
   return {
     "Colis": [
@@ -21,7 +21,7 @@ const getstatenumber = (s)=>{
         "Stopdesk": isStopDesk,
         "NomComplet": order.name,
         "Mobile_1": order.phone,
-        "Mobile_2": "", 
+        "Mobile_2": "",
         "Adresse": `${order.city || ''} - ${order.state || ''}`, // دمجنا الولاية والبلدية كعنوان
         "Wilaya": getstatenumber(order.state), // تأكد أنه يخزن الرقم "16" وليس الاسم
         "Commune": order.city, // أو استخدم ID إذا توفر لديك
