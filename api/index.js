@@ -90,10 +90,8 @@ res.json({
 
 app.post("/send-order", async (req, res) => {
     const {company, order}  = req.body
-            console.log(company, order);
 
     const finalorder = transformOrderForProvider(order, company.name)
-            console.log(company, order, "zbi);
          
     try {
         console.log(getapi(company.name));
