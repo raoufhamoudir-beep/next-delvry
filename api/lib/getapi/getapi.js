@@ -1,6 +1,6 @@
 // import { formatToYalidine } from './yalidine.js';
 
- const getapi = ( provider) => {
+const getapi = (provider) => {
   switch (provider) {
     // case 'zr_express':
     case 'ecom_delivery':
