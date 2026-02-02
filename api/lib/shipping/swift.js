@@ -10,7 +10,7 @@ const formatToswift = (order) => {
     // 2. Helper to get Wilaya Code
     const getstatenumber = (s) => {
         const stateObj = states.find(e => e.ar_name == s || e.name == s);
-        return stateObj ? stateObj.code : "";
+        return stateObj ? Number(stateObj.code) : "";
     };
     console.log(getstatenumber(order.state));
 
@@ -31,7 +31,6 @@ const formatToswift = (order) => {
     params.append("remarque", order.not || "");
     params.append("type", "1");
     params.append("stop_desk", isStopDesk);
-    console.log(params.toString());
 
     return params.toString();
 };
