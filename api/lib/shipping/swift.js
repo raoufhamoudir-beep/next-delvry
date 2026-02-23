@@ -24,15 +24,16 @@ const formatToswift = (order) => {
     params.append("telephone_2", "");
     params.append("adresse", `${city || ''}`);
     params.append("code_postal", "");
-    params.append("produit", order.item.name || "Products");
+    params.append("produit", order.productData.name || "Products");
     params.append("commune", String(city)); // This will auto-convert "Bir El Djir" to "Bir+El+Djir"
     params.append("code_wilaya", wilayaCode);
     params.append("montant", order.total);
-    params.append("remarque", order.not || "");
+    params.append("remarque", order.note || "");
     params.append("type", "1");
     params.append("stop_desk", isStopDesk);
 
     return params.toString();
 };
+
 
 module.exports = formatToswift;
