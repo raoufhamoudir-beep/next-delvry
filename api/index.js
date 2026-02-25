@@ -51,6 +51,22 @@ app.post("/listen", async (req, res) => {
 })
 
 
+const myNewOrder = {
+  client: "Ahmed Ahmed",             // اسم الزبون [cite: 18, 27]
+  phone: "0550505050",               // رقم الهاتف (9-10 أرقام) [cite: 21, 28]
+  adresse: "Rue des Martyrs, Bab Ezzouar", // العنوان [cite: 21, 30]
+  wilaya_id: 16,                     // معرف الولاية (مثلاً 16 للجزائر) [cite: 21, 31]
+  commune: "El Harrach",            // البلدية [cite: 21, 34]
+  montant: 3500,                     // مبلغ الطلبية [cite: 21, 35]
+  produit: "Smartphone Samsung Galaxy", // اسم المنتج [cite: 21, 36]
+  type_id: 1,                        // نوع التوصيل (1 = توصيل للمنزل) [cite: 21, 37]
+  stop_desk: 0,                      // 0 للمنزل، 1 للمكتب [cite: 21, 39]
+  reference: "REF12345"              // مرجع اختياري [cite: 18, 26]
+};
+
+// تنفيذ الإرسال
+ 
+
 app.post("/test", async (req, res) => {
     const { company } = req.body
     try {
@@ -68,6 +84,20 @@ app.post("/test", async (req, res) => {
             );
         } else if (company.name === "swift_express") {
             result = await axios.get(`https://swift.ecotrack.dz/api/v1/validate/token?api_token=${company.Token}`)
+        } else if (company.name === "noest"){
+             result =await axios.post(
+      `https://app.noest-dz.com/api/public/create/order`, 
+      {
+        user_guid:company.Key, // المعلمة المطلوبة دائماً [cite: 18]
+        ...myNewOrder // باقي تفاصيل الطلبية (الاسم، الهاتف، العنوان...)
+      },
+      {
+        headers: {
+          'Authorization': `Bearer ${company.Token }`, // التوثيق عبر الهيدر [cite: 6, 15]
+          'Content-Type': 'application/json'      // نوع المحتوى [cite: 16]
+        }
+      }
+    );
         }
 
 
@@ -111,7 +141,22 @@ app.post("/send-order", async (req, res) => {
             );
         } else if (company.name === "swift_express") {
             result = await axios.post(`https://swift.ecotrack.dz/api/v1/create/order?api_token=${company.Token}&${finalorder}`)
+        } else if (company.name === "noest"){
+             result =await axios.post(
+      `https://app.noest-dz.com/api/public/create/order`, 
+      {
+        user_guid:company.Key, // المعلمة المطلوبة دائماً [cite: 18]
+        ...finalorder // باقي تفاصيل الطلبية (الاسم، الهاتف، العنوان...)
+      },
+      {
+        headers: {
+          'Authorization': `Bearer ${company.Token }`, // التوثيق عبر الهيدر [cite: 6, 15]
+          'Content-Type': 'application/json'      // نوع المحتوى [cite: 16]
         }
+      }
+    );
+        }
+
 
         console.log("API Response:", result.data);
         res.json({
