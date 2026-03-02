@@ -1,6 +1,5 @@
 const express = require('express')
 const cors = require('cors')
-const mongoose = require('mongoose')
 const { default: axios } = require('axios');
 const getapi = require('./lib/getapi/getapi');
 const transformOrderForProvider = require('./lib/shipping/mappers')
@@ -84,7 +83,7 @@ app.post("/test", async (req, res) => {
             );
         } else if (company.name === "swift_express") {
             result = await axios.get(`https://swift.ecotrack.dz/api/v1/validate/token?api_token=${company.Token}`)
-        } else if (company.name === "noest"){
+        } else if (company.name === "noas express"){
              result =await axios.post(
       `https://app.noest-dz.com/api/public/create/order`, 
       {
@@ -141,7 +140,7 @@ app.post("/send-order", async (req, res) => {
             );
         } else if (company.name === "swift_express") {
             result = await axios.post(`https://swift.ecotrack.dz/api/v1/create/order?api_token=${company.Token}&${finalorder}`)
-        } else if (company.name === "noest"){
+        } else if (company.name === "noas express"){
              result =await axios.post(
       `https://app.noest-dz.com/api/public/create/order`, 
       {

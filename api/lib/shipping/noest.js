@@ -19,7 +19,7 @@ const formatTonoest = (order) => {
   client: order.name,             // اسم الزبون [cite: 18, 27]
   phone: order.phone,               // رقم الهاتف (9-10 أرقام) [cite: 21, 28]
   adresse:  `${order.city || ''} - ${order.state || ''}`, // دمجنا الولاية والبلدية كعنوان
-  wilaya_id: getstatenumber(order.state),                     // معرف الولاية (مثلاً 16 للجزائر) [cite: 21, 31]
+  wilaya_id: Number( getstatenumber(order.state)),                     // معرف الولاية (مثلاً 16 للجزائر) [cite: 21, 31]
   commune: order.city,            // البلدية [cite: 21, 34]
   montant:  order.total ,                     // مبلغ الطلبية [cite: 21, 35]
   produit: articleName, // اسم المنتج [cite: 21, 36]

@@ -8,7 +8,7 @@ const transformOrderForProvider = (order, provider) => {
       return formatToEcomDelivery(order);
     case 'swift_express':
       return formatToswift(order);
-    case "noest":
+    case "noas express":
       return formatTonoest(order);
     default:
       throw new Error('Unknown Provider');
